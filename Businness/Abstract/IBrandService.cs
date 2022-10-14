@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DtoS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Businness.Abstract
         IResult delete(Brand brand);
         //Update
         IResult Update(Brand brand);
+
+        IDataResult<List<BrandDetailDto>> GetBrandDetailDto();
     }
 }

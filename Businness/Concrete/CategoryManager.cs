@@ -1,8 +1,11 @@
 ﻿using Businness.Abstract;
 using Businness.Constant;
+using Businness.Validators.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DtoS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,8 @@ namespace Businness.Concrete
         {
             _categoryDal=categoryDal;
         }
+
+        [ValidationAspect(typeof(CategoriesValidator))]
         public IResult add(Category category)
         {
             _categoryDal.Add(category);
@@ -33,6 +38,11 @@ namespace Businness.Concrete
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.Listed);
+        }
+
+        public IDataResult<List<CategoryDeatilDto>> GetDetails()
+        {
+            return new SuccessDataResult<List<CategoryDeatilDto>>(_categoryDal.GetBrandDetailDtos(), Messages.Listed);
         }
 
         public IResult Update(Category category)

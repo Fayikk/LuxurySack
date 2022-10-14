@@ -3,6 +3,7 @@ using Businness.Constant;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DtoS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Businness.Concrete
     public class BrandManager : IBrandService
     {
         IBrandDal _brandDal;
-        private object Updated;
+        
 
         public BrandManager(IBrandDal brandDal)
         {
@@ -29,12 +30,17 @@ namespace Businness.Concrete
         public IResult delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            return new SuccessResult(true, Messages.Deleted);
+            return new SuccessResult( Messages.Deleted);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.Listed);
+        }
+
+        public IDataResult<List<BrandDetailDto>> GetBrandDetailDto()
+        {
+            return new SuccessDataResult<List<BrandDetailDto>>(_brandDal.BrandDetails(),Messages.Listed);
         }
 
         public IResult Update(Brand brand)

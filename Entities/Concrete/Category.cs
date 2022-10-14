@@ -13,8 +13,8 @@ namespace Entities.Concrete
         public int CategoryId { get; set; }
 
         public string Goods { get; set; }
-        public int ProductId { get; set; }
+        //public int ProductId { get; set; }
 
-
+        public int BrandId { get; set; }
     }
 }
