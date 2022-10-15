@@ -1,5 +1,8 @@
 ﻿using Businness.Abstract;
+using Businness.BusinessAspects.Autofac;
 using Businness.Constant;
+using Businness.Validators.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
@@ -19,6 +22,10 @@ namespace Businness.Concrete
         {
             _productDal = productDal;
         }
+
+        //[SecuredOperation("admin")]
+        [ValidationAspect(typeof(ProductsValidator))]
+
         public IResult add(Product product)
         {
             _productDal.Add(product);

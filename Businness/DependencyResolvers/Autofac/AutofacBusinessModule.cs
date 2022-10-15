@@ -4,16 +4,15 @@ using Businness.Abstract;
 using Businness.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Module = Autofac.Module;
+
 
 namespace Businness.DependencyResolvers.Autofac
 {
@@ -30,7 +29,11 @@ namespace Businness.DependencyResolvers.Autofac
             builder.RegisterType<BrandManager>().As<IBrandService>();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>();
 
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
 
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

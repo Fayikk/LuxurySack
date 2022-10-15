@@ -12,7 +12,7 @@ namespace Businness.Validators.FluentValidation
     {
         public ProductsValidator()
         {
-
+            RuleFor(p => p.ProductName).NotEmpty();
         }
     }
 }
