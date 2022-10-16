@@ -1,7 +1,10 @@
 ﻿using Businness.Abstract;
 using Businness.Constant;
 using Businness.Validators.FluentValidation;
+using Core.Aspects.AutoFac.Logging;
+using Core.Aspects.Caching;
 using Core.Aspects.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -23,6 +26,8 @@ namespace Businness.Concrete
         }
 
         [ValidationAspect(typeof(CategoriesValidator))]
+        [CacheRemoveAspect("ICategorSerice.Get")]
+
         public IResult add(Category category)
         {
             _categoryDal.Add(category);
@@ -35,11 +40,12 @@ namespace Businness.Concrete
             return new SuccessResult(Messages.Deleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.Listed);
         }
-
+        //[LogAspect(typeof(FileLogger))]
         public IDataResult<List<CategoryDeatilDto>> GetDetails()
         {
             return new SuccessDataResult<List<CategoryDeatilDto>>(_categoryDal.GetBrandDetailDtos(), Messages.Listed);
