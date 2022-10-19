@@ -23,7 +23,7 @@ namespace Core.CrossCuttingConcerns.Logging.Log4Net
             log4net.Config.XmlConfigurator.Configure(loggerRepository, xmlDocument["log4net"]);
 
             _log = LogManager.GetLogger(loggerRepository.Name, name);
-
+            log4net.Config.XmlConfigurator.Configure();
 
         }
 

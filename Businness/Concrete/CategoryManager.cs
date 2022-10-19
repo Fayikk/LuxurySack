@@ -1,7 +1,11 @@
-﻿using Businness.Abstract;
+﻿using Business.BusinessAspects.Autofac;
+using Businness.Abstract;
+//using Businness.BusinessAspects.Autofac;
 using Businness.Constant;
 using Businness.Validators.FluentValidation;
 using Core.Aspects.AutoFac.Logging;
+using Core.Aspects.AutoFac.Performance;
+//using Core.Aspects.AutoFac.Performance;
 using Core.Aspects.Caching;
 using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
@@ -26,8 +30,7 @@ namespace Businness.Concrete
         }
 
         [ValidationAspect(typeof(CategoriesValidator))]
-        [CacheRemoveAspect("ICategorSerice.Get")]
-
+        //[CacheRemoveAspect("ICategorSerice.Get")]
         public IResult add(Category category)
         {
             _categoryDal.Add(category);
@@ -40,12 +43,22 @@ namespace Businness.Concrete
             return new SuccessResult(Messages.Deleted);
         }
 
-        [CacheAspect]
+        //[CacheAspect]
+        //[LogAspect(typeof(FileLogger))]
+        //[SecuredOperation("admin")]
+        [PerformanceAspect(5)]
+
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), Messages.Listed);
         }
-        //[LogAspect(typeof(FileLogger))]
+
+        //public IDataResult<List<Category>> GetById(int Id)
+        //{
+        //    return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(c=>c.BrandId==Id), Messages.Listed);   
+        //}
+
+        [LogAspect(typeof(DatabaseLogger))]
         public IDataResult<List<CategoryDeatilDto>> GetDetails()
         {
             return new SuccessDataResult<List<CategoryDeatilDto>>(_categoryDal.GetBrandDetailDtos(), Messages.Listed);

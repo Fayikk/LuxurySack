@@ -13,7 +13,7 @@ namespace DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=FAYIK; DataBase=LuxurySacks;Trusted_Connection =true");
+            optionsBuilder.UseSqlServer(@"Server=FAYIK; DataBase=Sacks;Trusted_Connection =true");
 
 
         }

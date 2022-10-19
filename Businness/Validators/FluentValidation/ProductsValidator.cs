@@ -13,6 +13,11 @@ namespace Businness.Validators.FluentValidation
         public ProductsValidator()
         {
             RuleFor(p => p.ProductName).NotEmpty();
+            RuleFor(p => p.ProductName).Must(StartWithA).WithMessage("Ürün adı 'A' ile başlamalıdır");
+        }
+        private bool StartWithA(string arg)//Burada ise metodlarımzı ve validator'larımızı biz oluşturuyoruz.
+        {
+            return arg.StartsWith("A");//Değer true dönecektir.Eğer false dönerse yukarıdaki validator patlayacaktır.
         }
     }
 }

@@ -22,5 +22,6 @@ namespace Businness.Constant
         public static string UserNotFound = "Kullanıcı Bulunamadı";
         public static string PasswordError = "Parola Hatalı";
         public static string SuccessfulLogin = "Giriş Başarılı";
+        public static string ProductUpdated = "Ürün güncellendi";
     }
 }

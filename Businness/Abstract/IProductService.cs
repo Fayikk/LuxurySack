@@ -17,5 +17,10 @@ namespace Businness.Abstract
         IResult delete(Product product);
         //Update
         IResult Update(Product product);
+        IResult TransactionalOperation(Product product);
+
+        IDataResult<List<Product>> GetById(int Id);
+
+
     }
 }

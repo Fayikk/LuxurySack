@@ -1,19 +1,25 @@
-﻿using Core.Entities.Concrete;
-using Core.Extension;
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using Core.Entities.Concrete;
+using Core.Extensions;
 using Core.Utilities.Security.Encryption;
+//using Core.Utilities.Security.Encyption;
+using Core.Utilities.Security.JWT;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using static Core.Utilities.Security.Encryption.SecurityKeyHelper;
 
-namespace Core.Utilities.Security.JWT
+namespace Core.Utilities.Security.Jwt
 {
     public class JwtHelper : ITokenHelper
     {
         public IConfiguration Configuration { get; }
         private TokenOptions _tokenOptions;
-        private DateTime _accessTokenExpiration;//access token ne zaman geçersizleştirilecek
+        private DateTime _accessTokenExpiration;
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -54,10 +60,9 @@ namespace Core.Utilities.Security.JWT
         private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
         {
             var claims = new List<Claim>();
-
             claims.AddNameIdentifier(user.Id.ToString());
             claims.AddEmail(user.Email);
-            claims.AddName($"{user.FirstName} {user.LastName}");//iki stringi yan yana göstermek için kullanılan yapı bu şekildedir.
+            claims.AddName($"{user.FirstName} {user.LastName}");
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
 
             return claims;

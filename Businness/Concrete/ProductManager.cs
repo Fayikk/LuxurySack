@@ -1,7 +1,9 @@
 ﻿using Businness.Abstract;
-using Businness.BusinessAspects.Autofac;
+//using Businness.BusinessAspects.Autofac;
 using Businness.Constant;
 using Businness.Validators.FluentValidation;
+using Core.Aspects.AutoFac.Performance;
+using Core.Aspects.AutoFac.Transaction;
 using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -25,7 +27,8 @@ namespace Businness.Concrete
 
         //[SecuredOperation("admin")]
         [ValidationAspect(typeof(ProductsValidator))]
-
+        [PerformanceAspect(5)]//bu anotation asıl kullanım amacı overwatch üzerinden eğer bu metodun çalışması 5 sn'yi geçerse
+        //bir şekilde etkileşim kurmak için kullanılmaktadır.
         public IResult add(Product product)
         {
             _productDal.Add(product);
@@ -41,6 +44,19 @@ namespace Businness.Concrete
         public IDataResult<List<Product>> GetAll()
         {
            return  new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.Listed);
+        }
+
+        public IDataResult<List<Product>> GetById(int Id)
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.BrandId == Id), Messages.SuccessMessages);
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Product product)
+        {
+            _productDal.Update(product);
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductUpdated);
         }
 
         public IResult Update(Product product)

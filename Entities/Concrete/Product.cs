@@ -14,12 +14,13 @@ namespace Entities.Concrete
     {
         public int ProductId { get; set; }
 
+        public int BrandId { get; set; }
         public string ProductName { get; set; }
 
         public decimal Price { get; set; }
         public decimal Size { get; set; }
         public string Description { get; set; }
-        //public int BrandId { get; set; }
+      
 
 
     }

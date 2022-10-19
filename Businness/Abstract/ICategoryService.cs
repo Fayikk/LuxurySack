@@ -19,5 +19,6 @@ namespace Businness.Abstract
         IResult Update(Category category);
 
         IDataResult<List<CategoryDeatilDto>> GetDetails();
+        //IDataResult<List<Category>> GetById(int Id);
     }
 }

@@ -19,5 +19,7 @@ namespace Businness.Abstract
         IResult Update(Brand brand);
 
         IDataResult<List<BrandDetailDto>> GetBrandDetailDto();
+        IDataResult<List<Brand>> GetById(int Id);
+
     }
 }

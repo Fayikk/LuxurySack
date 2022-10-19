@@ -1,6 +1,10 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
-namespace Core.Extension
+namespace Core.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {
@@ -13,7 +17,6 @@ namespace Core.Extension
         public static List<string> ClaimRoles(this ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal?.Claims(ClaimTypes.Role);
-            //Claims'lerin rolünü döndürmemiz sağlamaktadır.
         }
     }
 }

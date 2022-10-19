@@ -22,7 +22,7 @@ namespace DataAccess.Concrete
             {
                 var result = from c in context.Categories
                              join b in context.Brands
-                             on c.BrandId equals b.BrandId
+                             on c.CategoryId equals b.CategoryId
                              select new CategoryDeatilDto
                              {
                                  BrandId = b.BrandId
